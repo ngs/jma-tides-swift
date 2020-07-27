@@ -10,5 +10,5 @@ jobs:
       - uses: actions/checkout@v2
       - uses: YOCKOW/Action-setup-swift@master
         with:
-          swift-version: '5.3'
+          swift-version: 'DEVELOPMENT-SNAPSHOT-2020-06-04-a'
       - run: swift test

@@ -1,5 +1,7 @@
 import Foundation
 
+let timeZone = TimeZone(identifier: "Asia/Tokyo")!
+
 fileprivate func extractLine(_ string: String, _ start: Int, _ length: Int) -> String {
     let startIndex = string.index(string.startIndex, offsetBy: start)
     let endIndex = string.index(string.startIndex, offsetBy: start + length)
@@ -8,11 +10,13 @@ fileprivate func extractLine(_ string: String, _ start: Int, _ length: Int) -> S
 }
 
 fileprivate func extractDate(_ string: String) -> Date {
+    var calendar = Calendar(identifier: .gregorian)
+    calendar.timeZone = timeZone
     let year = 2000 + (Int(extractLine(string, 72, 2)) ?? 0)
     let month = Int(extractLine(string, 74, 2)) ?? 0
     let day = Int(extractLine(string, 76, 2)) ?? 0
     var components = DateComponents()
-    components.timeZone = TimeZone(secondsFromGMT: 9 * 24 * 60 * 60 )
+    components.timeZone = timeZone
     components.year = year
     components.month = month
     components.day = day
@@ -32,7 +36,18 @@ fileprivate func extractLocationId(_ string: String) -> String {
     return extractLine(string, 78, 2)
 }
 
-fileprivate let calendar = Calendar(identifier: .gregorian)
+fileprivate func extractLevels(_ string: String, _ date: Date, _ start: Int) -> [Level] {
+    let levels: [Level?] = (0..<4).map {
+        guard let time = extractTime(string, start: start + $0 * 7) else {
+            return nil
+        }
+        return Level(
+            date: date.addingTimeInterval(time),
+            value: Int(extractLine(string, start + $0 * 7 + 4, 3)) ?? 0
+        )
+    }
+    return (levels.filter { $0 != nil } as? [Level]) ?? []
+}
 
 struct Parser {
     let records: [Record]
@@ -60,26 +75,8 @@ struct Record {
                 value: Int(extractLine(string, $0 * 3, 3)) ?? 0
             )
         }
-        let highLevels: [Level?] = (0..<4).map {
-            guard let time = extractTime(string, start: 80 + $0 * 7) else {
-                return nil
-            }
-            return Level(
-                date: date.addingTimeInterval(time),
-                value: Int(extractLine(string, 80 + $0 * 7 + 4, 3)) ?? 0
-            )
-        }
-        self.highLevels = (highLevels.filter { $0 != nil } as? [Level]) ?? []
-        let lowLevels: [Level?] = (0..<4).map {
-            guard let time = extractTime(string, start: 108 + $0 * 7) else {
-                return nil
-            }
-            return Level(
-                date: date.addingTimeInterval(time),
-                value: Int(extractLine(string, 108 + $0 * 7 + 4, 3)) ?? 0
-            )
-        }
-        self.lowLevels = (lowLevels.filter { $0 != nil } as? [Level]) ?? []
+        highLevels = extractLevels(string, date, 80)
+        lowLevels = extractLevels(string, date, 108)
         self.date = date
         locationId = extractLocationId(string)
     }

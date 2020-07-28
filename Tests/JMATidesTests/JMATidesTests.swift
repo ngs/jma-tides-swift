@@ -34,10 +34,14 @@ final class JMATidesTests: XCTestCase {
         XCTAssertEqual(sorted[1].id, "AM")
         XCTAssertEqual(sorted[2].id, "J5")
         XCTAssertEqual(sorted[3].id, "OS")
-        XCTAssertEqual(sorted[0].url(for: 2020).absoluteString, "https://www.data.jma.go.jp/gmd/kaiyou/data/db/tide/suisan/txt/2020/MZ.txt")
-        XCTAssertEqual(sorted[1].url(for: 2020).absoluteString, "https://www.data.jma.go.jp/gmd/kaiyou/data/db/tide/suisan/txt/2020/AM.txt")
-        XCTAssertEqual(sorted[2].url(for: 2020).absoluteString, "https://www.data.jma.go.jp/gmd/kaiyou/data/db/tide/suisan/txt/2020/J5.txt")
-        XCTAssertEqual(sorted[3].url(for: 2020).absoluteString, "https://www.data.jma.go.jp/gmd/kaiyou/data/db/tide/suisan/txt/2020/OS.txt")
+        XCTAssertEqual(sorted[0].url(for: 2020).absoluteString,
+                       "https://www.data.jma.go.jp/gmd/kaiyou/data/db/tide/suisan/txt/2020/MZ.txt")
+        XCTAssertEqual(sorted[1].url(for: 2020).absoluteString,
+                       "https://www.data.jma.go.jp/gmd/kaiyou/data/db/tide/suisan/txt/2020/AM.txt")
+        XCTAssertEqual(sorted[2].url(for: 2020).absoluteString,
+                       "https://www.data.jma.go.jp/gmd/kaiyou/data/db/tide/suisan/txt/2020/J5.txt")
+        XCTAssertEqual(sorted[3].url(for: 2020).absoluteString,
+                       "https://www.data.jma.go.jp/gmd/kaiyou/data/db/tide/suisan/txt/2020/OS.txt")
     }
 
     static var allTests = [

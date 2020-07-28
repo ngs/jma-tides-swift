@@ -17,6 +17,10 @@ struct Location {
         self.long = long
     }
 
+    func url(for year: Int) -> URL {
+        return URL(string: "https://www.data.jma.go.jp/gmd/kaiyou/data/db/tide/suisan/txt/\(year)/\(id).txt")!
+    }
+
     func distance(from lat: Double, _ long: Double) -> Double {
         // https://www.movable-type.co.uk/scripts/latlong.html
         // swiftlint:disable identifier_name

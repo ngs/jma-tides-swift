@@ -8,6 +8,6 @@ let url = location.url(for: year)
 
 URLSession.shared.dataTask(with: url) { (data, res, err) in
     let parser = Parser(data: data!)
-    let records = parser.record(for: now)!
-    records.levels.map { $0.value }
+    let record = parser.record(for: now)!
+    record.levels.map { $0.value }
 }.resume()

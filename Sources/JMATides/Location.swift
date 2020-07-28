@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Atsushi Nagase on 2020/07/28.
-//
-
 import Foundation
 
 struct Location {

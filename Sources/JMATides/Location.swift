@@ -9,6 +9,15 @@ public struct Location {
     public let long: Double
 
     // swiftlint:disable:next identifier_name
+    init(_ name: String, _ kana: String, _ id: LocationID, _ lat: Double, _ long: Double) {
+        self.name = name
+        self.kana = kana
+        self.id = id
+        self.lat = lat
+        self.long = long
+    }
+
+    // swiftlint:disable:next identifier_name
     public init(by id: LocationID) {
         let found = Location.all.first(where: { $0.id == id })!
         self.id = found.id
@@ -16,15 +25,6 @@ public struct Location {
         kana = found.kana
         lat = found.lat
         long = found.long
-    }
-
-    // swiftlint:disable:next identifier_name
-    public init(_ name: String, _ kana: String, _ id: LocationID, _ lat: Double, _ long: Double) {
-        self.name = name
-        self.kana = kana
-        self.id = id
-        self.lat = lat
-        self.long = long
     }
 
     public func url(for year: Int) -> URL {

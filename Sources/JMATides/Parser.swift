@@ -50,12 +50,12 @@ private func extractLevels(_ string: String, _ date: Date, _ start: Int) -> [Lev
 }
 
 public struct Parser {
-    let records: [Record]
-    init(data: Data) {
+    public let records: [Record]
+    public init(data: Data) {
         records = String(data: data, encoding: .utf8)?.split(separator: "\n").map { Record(String($0)) } ?? []
     }
 
-    func record(for date: Date) -> Record? {
+    public func record(for date: Date) -> Record? {
         let formatter = DateFormatter()
         formatter.timeZone = timeZone
         formatter.dateStyle = .full
@@ -68,16 +68,16 @@ public struct Parser {
 }
 
 public struct Level {
-    let date: Date
-    let value: Int
+    public let date: Date
+    public let value: Int
 }
 
 public struct Record {
-    let levels: [Level]
-    let date: Date
-    let locationId: LocationID
-    let highLevels: [Level]
-    let lowLevels: [Level]
+    public let levels: [Level]
+    public let date: Date
+    public let locationId: LocationID
+    public let highLevels: [Level]
+    public let lowLevels: [Level]
     init(_ string: String) {
         let date = extractDate(string)
         levels = (0..<24).map {

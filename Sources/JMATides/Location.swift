@@ -1,6 +1,6 @@
 import Foundation
 
-struct Location {
+public struct Location {
     // swiftlint:disable:next identifier_name
     let id: LocationID
     let name: String
@@ -57,7 +57,7 @@ struct Location {
 }
 
 extension Location: Equatable {
-    static func == (lhs: Location, rhs: Location) -> Bool {
+    public static func == (lhs: Location, rhs: Location) -> Bool {
         return lhs.id == rhs.id
     }
 }

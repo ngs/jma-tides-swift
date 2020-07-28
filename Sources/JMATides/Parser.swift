@@ -49,7 +49,7 @@ private func extractLevels(_ string: String, _ date: Date, _ start: Int) -> [Lev
     return (levels.filter { $0 != nil } as? [Level]) ?? []
 }
 
-struct Parser {
+public struct Parser {
     let records: [Record]
     init(data: Data) {
         records = String(data: data, encoding: .utf8)?.split(separator: "\n").map { Record(String($0)) } ?? []
@@ -67,12 +67,12 @@ struct Parser {
     }
 }
 
-struct Level {
+public struct Level {
     let date: Date
     let value: Int
 }
 
-struct Record {
+public struct Record {
     let levels: [Level]
     let date: Date
     let locationId: LocationID

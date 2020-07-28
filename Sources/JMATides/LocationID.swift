@@ -1,6 +1,6 @@
 // swiftlint:disable identifier_name type_body_length
 
-enum LocationID: String {
+public enum LocationID: String {
     case WN
     case KE
     case A0

@@ -54,6 +54,17 @@ struct Parser {
     init(data: Data) {
         records = String(data: data, encoding: .utf8)?.split(separator: "\n").map { Record(String($0)) } ?? []
     }
+
+    func record(for date: Date) -> Record? {
+        let formatter = DateFormatter()
+        formatter.timeZone = timeZone
+        formatter.dateStyle = .full
+        formatter.timeStyle = .none
+        let formattedDate = formatter.string(from: date)
+        return records.first { record -> Bool in
+            return formatter.string(from: record.date) == formattedDate
+        }
+    }
 }
 
 struct Level {

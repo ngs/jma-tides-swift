@@ -21,6 +21,10 @@ final class JMATidesTests: XCTestCase {
                 XCTAssertEqual(parser.records[d].levels[h].date, date.addingTimeInterval(TimeInterval(h * 60 * 60)))
             }
         }
+        XCTAssertEqual(
+            parser.record(for: Date(timeIntervalSince1970: TimeInterval(1595909313)))?.date.timeIntervalSince1970,
+            1595862000.0
+        )
     }
 
     func testSortedLocations() {

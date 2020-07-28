@@ -2,14 +2,14 @@ import Foundation
 
 let timeZone = TimeZone(identifier: "Asia/Tokyo")!
 
-fileprivate func extractLine(_ string: String, _ start: Int, _ length: Int) -> String {
+private func extractLine(_ string: String, _ start: Int, _ length: Int) -> String {
     let startIndex = string.index(string.startIndex, offsetBy: start)
     let endIndex = string.index(string.startIndex, offsetBy: start + length)
     let range = startIndex..<endIndex
     return String(string[range]).trimmingCharacters(in: .whitespacesAndNewlines)
 }
 
-fileprivate func extractDate(_ string: String) -> Date {
+private func extractDate(_ string: String) -> Date {
     var calendar = Calendar(identifier: .gregorian)
     calendar.timeZone = timeZone
     let year = 2000 + (Int(extractLine(string, 72, 2)) ?? 0)
@@ -23,7 +23,7 @@ fileprivate func extractDate(_ string: String) -> Date {
     return calendar.date(from: components) ?? Date(timeIntervalSince1970: 0)
 }
 
-fileprivate func extractTime(_ string: String, start: Int) -> TimeInterval? {
+private func extractTime(_ string: String, start: Int) -> TimeInterval? {
     if extractLine(string, start, 4) == "9999" {
         return nil
     }
@@ -32,11 +32,11 @@ fileprivate func extractTime(_ string: String, start: Int) -> TimeInterval? {
     return TimeInterval((hours * 60 + minutes) * 60)
 }
 
-fileprivate func extractLocationId(_ string: String) -> String {
+private func extractLocationId(_ string: String) -> String {
     return extractLine(string, 78, 2)
 }
 
-fileprivate func extractLevels(_ string: String, _ date: Date, _ start: Int) -> [Level] {
+private func extractLevels(_ string: String, _ date: Date, _ start: Int) -> [Level] {
     let levels: [Level?] = (0..<4).map {
         guard let time = extractTime(string, start: start + $0 * 7) else {
             return nil

@@ -17,6 +17,17 @@ package.dependencies = [
 ]
 ```
 
+## Teste on Playground
+
+Use [arena]
+
+```sh
+arena https://github.com/ngs/jma-tides-swift --name JMATidesPlayground
+
+curl https://github.com/ngs/jma-tides-swift/raw/master/Examples/Fetch.swift > \
+  JMATidesPlayground/MyPlayground.playground/Contents.swift 
+```
+
 ## Author
 
 [Atsushi Nagase]
@@ -28,3 +39,4 @@ package.dependencies = [
 
 [潮位表データ]: https://www.data.jma.go.jp/gmd/kaiyou/db/tide/suisan/index.php
 [Atsushi Nagase]: https://ja.ngs.io
+[arena]: https://github.com/finestructure/Arena

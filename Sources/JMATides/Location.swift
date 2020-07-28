@@ -2,14 +2,24 @@ import Foundation
 
 struct Location {
     // swiftlint:disable:next identifier_name
-    let id: String
+    let id: LocationID
     let name: String
     let kana: String
     let lat: Double
     let long: Double
 
     // swiftlint:disable:next identifier_name
-    init(_ name: String, _ kana: String, _ id: String, _ lat: Double, _ long: Double) {
+    init(by id: LocationID) {
+        let found = locations.first(where: { $0.id == id })!
+        self.id = found.id
+        name = found.name
+        kana = found.kana
+        lat = found.lat
+        long = found.long
+    }
+
+    // swiftlint:disable:next identifier_name
+    init(_ name: String, _ kana: String, _ id: LocationID, _ lat: Double, _ long: Double) {
         self.name = name
         self.kana = kana
         self.id = id
@@ -43,5 +53,11 @@ struct Location {
         return locations.sorted { (loc1: Location, loc2: Location) -> Bool in
             return loc1.distance(from: lat, long) < loc2.distance(from: lat, long)
         }
+    }
+}
+
+extension Location: Equatable {
+    static func == (lhs: Location, rhs: Location) -> Bool {
+        return lhs.id == rhs.id
     }
 }

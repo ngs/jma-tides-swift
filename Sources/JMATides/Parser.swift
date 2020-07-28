@@ -32,8 +32,8 @@ private func extractTime(_ string: String, start: Int) -> TimeInterval? {
     return TimeInterval((hours * 60 + minutes) * 60)
 }
 
-private func extractLocationId(_ string: String) -> String {
-    return extractLine(string, 78, 2)
+private func extractLocationId(_ string: String) -> LocationID {
+    return LocationID(rawValue: extractLine(string, 78, 2))!
 }
 
 private func extractLevels(_ string: String, _ date: Date, _ start: Int) -> [Level] {
@@ -75,7 +75,7 @@ struct Level {
 struct Record {
     let levels: [Level]
     let date: Date
-    let locationId: String
+    let locationId: LocationID
     let highLevels: [Level]
     let lowLevels: [Level]
     init(_ string: String) {

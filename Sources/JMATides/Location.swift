@@ -2,15 +2,15 @@ import Foundation
 
 public struct Location {
     // swiftlint:disable:next identifier_name
-    let id: LocationID
-    let name: String
-    let kana: String
-    let lat: Double
-    let long: Double
+    public let id: LocationID
+    public let name: String
+    public let kana: String
+    public let lat: Double
+    public let long: Double
 
     // swiftlint:disable:next identifier_name
-    init(by id: LocationID) {
-        let found = locations.first(where: { $0.id == id })!
+    public init(by id: LocationID) {
+        let found = Location.all.first(where: { $0.id == id })!
         self.id = found.id
         name = found.name
         kana = found.kana
@@ -19,7 +19,7 @@ public struct Location {
     }
 
     // swiftlint:disable:next identifier_name
-    init(_ name: String, _ kana: String, _ id: LocationID, _ lat: Double, _ long: Double) {
+    public init(_ name: String, _ kana: String, _ id: LocationID, _ lat: Double, _ long: Double) {
         self.name = name
         self.kana = kana
         self.id = id
@@ -27,11 +27,11 @@ public struct Location {
         self.long = long
     }
 
-    func url(for year: Int) -> URL {
+    public func url(for year: Int) -> URL {
         return URL(string: "https://www.data.jma.go.jp/gmd/kaiyou/data/db/tide/suisan/txt/\(year)/\(id).txt")!
     }
 
-    func distance(from lat: Double, _ long: Double) -> Double {
+    public func distance(from lat: Double, _ long: Double) -> Double {
         // https://www.movable-type.co.uk/scripts/latlong.html
         // swiftlint:disable identifier_name
         let R = 6371e3
@@ -49,8 +49,8 @@ public struct Location {
         return R * c
     }
 
-    static func sort(from lat: Double, _ long: Double) -> [Location] {
-        return locations.sorted { (loc1: Location, loc2: Location) -> Bool in
+    public static func sort(from lat: Double, _ long: Double) -> [Location] {
+        return Location.all.sorted { (loc1: Location, loc2: Location) -> Bool in
             return loc1.distance(from: lat, long) < loc2.distance(from: lat, long)
         }
     }

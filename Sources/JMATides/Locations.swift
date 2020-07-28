@@ -1,4 +1,4 @@
-let locations = [
+private let locations = [
   Location("稚内", "わっかない", .WN, 45.24223286624, 141.40621413025),
   Location("枝幸", "えさし", .KE, 44.56232200840, 142.34616737567),
   Location("紋別", "もんべつ", .A0, 44.21237463458, 143.21611124156),
@@ -239,3 +239,9 @@ let locations = [
   Location("男鹿", "おじか", .ZI, 39.57280451938, 139.41664042128),
   Location("深浦", "ふかうら", .FK, 40.39271926534, 139.55659104410)
 ]
+
+extension Location {
+    public static var all: [Location] {
+        return locations
+    }
+}
